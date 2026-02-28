@@ -38,7 +38,7 @@ You'll need Node.js installed. Download it from [nodejs.org](https://nodejs.org)
 
 **1. Clone the repo**
 ```bash
-git clone https://github.com/YOUR_USERNAME/ai-study-buddy.git
+git clone https://github.com/kaushtubhpadole/ai-study-buddy
 cd ai-study-buddy
 ```
 
