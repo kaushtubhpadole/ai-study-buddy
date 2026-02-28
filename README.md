@@ -1,113 +1,99 @@
-# ⬡ AI Study Buddy
+# AI Study Buddy
 
-A clean, minimal AI-powered study assistant built with Node.js + Express + Vanilla JS.  
-Powered by **Mistral-7B** via the **Hugging Face Inference API** (free tier).
+A web app I built to help with studying. You paste in a topic or your notes, pick how you want it explained, and it generates an explanation, summary, multiple choice questions, and flashcards — all at once.
 
----
-
-## ✨ Features
-
-- 📖 **3 Explanation Modes** — Simple, Exam, and Analogy
-- ✨ **Auto Summary** — Concise key-point summaries
-- 📝 **5 MCQs** — Multiple choice questions with answers highlighted
-- 🃏 **5 Flashcards** — Q&A format for quick revision
-- 💾 **Download .txt** — Save your study material
-- 🕒 **History** — Last 15 queries saved in browser (localStorage)
-- 🌙 **Dark Mode** — Toggle with one click
-- 📱 **Responsive** — Works on mobile
+I got tired of having to look up explanations, then separately find practice questions, then make my own flashcards. This just does all of it in one go.
 
 ---
 
-## 🚀 Setup & Running
+## What it does
 
-### 1. Clone or download this project
+- Paste any topic or notes into the text box
+- Choose an explanation style:
+  - **Simple** — plain English, no jargon
+  - **Exam Mode** — bullet points, structured for revision
+  - **Analogy Mode** — uses real-life comparisons to explain things
+- Hit Generate and you get back:
+  - A full explanation
+  - A short summary
+  - 5 multiple choice questions (with answers)
+  - 5 flashcards in Q&A format
+- Download everything as a `.txt` file
+- Previous searches are saved in your browser so you can go back to them
+- Dark mode toggle
 
+---
+
+## Tech stack
+
+- **Backend:** Node.js + Express
+- **Frontend:** Vanilla HTML, CSS, JavaScript (no frameworks)
+- **AI:** Groq API — using `llama-3.1-8b-instant`, it's free and fast
+
+---
+
+## Running it locally
+
+You'll need Node.js installed. Download it from [nodejs.org](https://nodejs.org) if you don't have it.
+
+**1. Clone the repo**
 ```bash
-git clone <repo-url>
+git clone https://github.com/YOUR_USERNAME/ai-study-buddy.git
 cd ai-study-buddy
 ```
 
-### 2. Install dependencies
-
+**2. Install dependencies**
 ```bash
 npm install
 ```
 
-### 3. Add your Hugging Face API key
+**3. Get a Groq API key**
 
-Copy the example env file and add your key:
+Go to [console.groq.com](https://console.groq.com), create a free account, and generate an API key. It's free, no credit card needed.
 
+**4. Set up your `.env` file**
 ```bash
 cp .env.example .env
 ```
-
-Then open `.env` and replace the placeholder:
-
+Open `.env` and paste your key:
 ```
-HF_API_KEY=your_actual_api_key_here
+GROQ_API_KEY=your_key_here
 ```
 
-**How to get a free Hugging Face API key:**
-1. Go to [https://huggingface.co/join](https://huggingface.co/join) and create a free account
-2. Visit [https://huggingface.co/settings/tokens](https://huggingface.co/settings/tokens)
-3. Click **"New token"** → choose **Read** access → copy the token
-4. Paste it as the value of `HF_API_KEY` in your `.env` file
-
-### 4. Start the server
-
+**5. Start the server**
 ```bash
 npm start
 ```
 
-Open your browser at **http://localhost:3000** 🎉
+Open [http://localhost:3000](http://localhost:3000) and you're good to go.
 
 ---
 
-## 📁 Project Structure
+## Project structure
 
 ```
 ai-study-buddy/
-├── server.js          # Express backend + /generate API route
-├── package.json       # Dependencies & scripts
-├── .env               # Your API key (never commit this!)
-├── .env.example       # Template for .env
-├── .gitignore
-├── README.md
+├── server.js        — Express server, handles API calls to Groq
+├── package.json
+├── .env.example     — copy this to .env and add your key
 └── public/
-    ├── index.html     # App UI
-    ├── style.css      # Styling
-    └── script.js      # Frontend logic
+    ├── index.html   — the whole UI
+    ├── style.css    — styling, supports dark mode
+    └── script.js    — handles requests, parses output, history
 ```
 
 ---
 
-## 🔧 How It Works
+## Notes
 
-1. User enters a topic or pastes notes and picks an explanation mode
-2. Frontend sends a `POST /generate` request to the Express server
-3. Server builds a structured prompt and calls the Hugging Face Inference API
-4. Mistral-7B generates the explanation, summary, MCQs, and flashcards
-5. Frontend parses the structured response and renders each section
-
-### Mode Prompts
-
-| Mode | Instruction |
-|------|-------------|
-| Simple | Explain in simple language suitable for a 10th grade student |
-| Exam | Explain in structured bullet points for exam preparation |
-| Analogy | Explain using real-life analogies |
+- The `.env` file is in `.gitignore` so your API key won't get pushed to GitHub
+- Groq's free tier has rate limits — if you hit a 429 error just wait a few seconds
+- Works on mobile too
 
 ---
 
-## 💡 Tips
+## Things I might add later
 
-- If you get a **503 error**, the model is warming up — wait 20 seconds and retry
-- Use **Ctrl + Enter** in the text area to generate quickly
-- Click any **history item** to reload a previous result
-- The **Download .txt** button saves all generated content to a file
-
----
-
-## 📄 License
-
-MIT — free to use and modify.
+- [ ] Let you export flashcards as a proper deck (Anki format maybe)
+- [ ] Quiz mode where it actually tests you on the MCQs
+- [ ] Option to upload a PDF instead of pasting text
